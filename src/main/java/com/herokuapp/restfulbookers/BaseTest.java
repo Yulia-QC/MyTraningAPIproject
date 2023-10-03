@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
    protected RequestSpecification spec;
+   protected Booking booking;
     @BeforeMethod
     public void setUp() {
         spec = new RequestSpecBuilder()

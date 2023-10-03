@@ -7,20 +7,18 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import static io.restassured.RestAssured.given;
+public class GetBookingTests extends BaseTest {
 
-public class GetBookingTests extends BaseTest{
-
-    @Test(enabled = false)
+    @Test
     public void getBookingTest() {
         //create new booking
         Response responseCreate = createBooking();
         responseCreate.print();
 
         //set path parameter
-        spec.pathParam("bookingid",responseCreate.jsonPath().getInt("bookingid"));
+        spec.pathParam("bookingid", responseCreate.jsonPath().getInt("bookingid"));
 
-        //Get response with booking
+        //Get response with bookingId
         Response response = RestAssured.given(spec).get("/booking/{bookingid}");
         response.print();
 
@@ -51,7 +49,17 @@ public class GetBookingTests extends BaseTest{
         softAssert.assertEquals(actualadditionalNeeds, "Coffee for the breakfast", "checkout date is not expected");
 
         softAssert.assertAll();
+
+        Bookingdates bookingdates = new Bookingdates(response.jsonPath().getString("bookingdates.checkin"),
+                response.jsonPath().getString("bookingdates.checkout"));
+        booking = new Booking(response.jsonPath().getString("firstname"),
+                 response.jsonPath().getString("lastname"),
+                response.jsonPath().getInt("totalprice"),
+                response.jsonPath().getBoolean("depositpaid"),
+                bookingdates,
+                response.jsonPath().getString("additionalneeds"));
     }
+
     @Test
     public void getBookingXMLTest() {   //for SOAP API
         //create new booking
@@ -59,7 +67,7 @@ public class GetBookingTests extends BaseTest{
         responseCreate.print();
 
         //set path parameter
-        spec.pathParam("bookingid",responseCreate.jsonPath().getInt("bookingid"));
+        spec.pathParam("bookingid", responseCreate.jsonPath().getInt("bookingid"));
 
         //Get response with booking
         Header xml = new Header("Accept", "application/xml");

@@ -4,19 +4,25 @@ import io.restassured.RestAssured;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class GetBookingTests extends BaseTest {
+    Response response;
+    @BeforeClass
+    public void initializeBooking() {
+        response= createBooking();
+        response.print();
+        Assert.assertEquals(response.getStatusCode(), 200, "Status code expected to be 200 but it is not");
+    }
 
     @Test
     public void getBookingTest() {
-        //create new booking
-        Response responseCreate = createBooking();
-        responseCreate.print();
 
         //set path parameter
-        spec.pathParam("bookingid", responseCreate.jsonPath().getInt("bookingid"));
+        spec.pathParam("bookingid", response.jsonPath().getInt("bookingid"));
 
         //Get response with bookingId
         Response response = RestAssured.given(spec).get("/booking/{bookingid}");
@@ -62,12 +68,9 @@ public class GetBookingTests extends BaseTest {
 
     @Test
     public void getBookingXMLTest() {   //for SOAP API
-        //create new booking
-        Response responseCreate = createBooking();
-        responseCreate.print();
 
         //set path parameter
-        spec.pathParam("bookingid", responseCreate.jsonPath().getInt("bookingid"));
+        spec.pathParam("bookingid", response.jsonPath().getInt("bookingid"));
 
         //Get response with booking
         Header xml = new Header("Accept", "application/xml");
@@ -103,4 +106,5 @@ public class GetBookingTests extends BaseTest {
 
         softAssert.assertAll();
     }
+
 }

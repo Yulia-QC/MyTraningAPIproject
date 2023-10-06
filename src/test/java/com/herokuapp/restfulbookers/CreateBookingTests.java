@@ -17,10 +17,8 @@ public class CreateBookingTests extends BaseTest {
         Assert.assertEquals(response.getStatusCode(), 200, "Status code expected to be 200 but it is not");
     }
 
-    @Test(enabled = false)
+    @Test
     public void createBookingTest() {
-
-        //verifications
 
         //verify all fields
         SoftAssert softAssert = new SoftAssert();

@@ -5,18 +5,25 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 
 public class UpdateBookingTests extends BaseTest{
+    Response response;
+    @BeforeClass
+    public void initializeBooking() {
+        response= createBooking();
+        response.print();
+        Assert.assertEquals(response.getStatusCode(), 200, "Status code expected to be 200 but it is not");
+    }
     @Test
     public void updateBookingTest() {
-        //create new booking
-        Response responseCreate = createBooking();
-        responseCreate.print();
+
         //get new booking id
-        int bookingid = responseCreate.jsonPath().getInt("bookingid");
+        int bookingid = response.jsonPath().getInt("bookingid");
 
         // create JSON body
         JSONObject body = new JSONObject();
@@ -67,6 +74,17 @@ public class UpdateBookingTests extends BaseTest{
 
         softAssert.assertAll();
 
+    }
+    @AfterClass(alwaysRun = true)
+    public void deleteInitializedBooking() {
+        if (response != null) {
+            int bookingid = response.jsonPath().getInt("bookingid");
+
+            //delete booking with authorization (auth().preemptive().basic("username","password").)
+            Response responseDelete = RestAssured.given(spec).auth().preemptive().basic("admin", "password123")
+                    .delete("/booking/" + bookingid);
+            responseDelete.print();
+        }
     }
 
 }

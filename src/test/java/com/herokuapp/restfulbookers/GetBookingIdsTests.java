@@ -3,12 +3,11 @@ package com.herokuapp.restfulbookers;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class GetBookingIdsTests extends BaseTest{
+public class GetBookingIdsTests extends BaseTest {
 
 
     @Test
@@ -28,8 +27,8 @@ public class GetBookingIdsTests extends BaseTest{
     public void getBookingIdsWithFilterTest() {
         prepareBooking();
         // add query parameter to spec
-        spec.queryParam("firstname",booking.getFirstname());
-        spec.queryParam("lastname",booking.getLastname());
+        spec.queryParam("firstname", booking.getFirstname());
+        spec.queryParam("lastname", booking.getLastname());
 
         //Get response with booking ids
         Response response = RestAssured.given(spec).get("/booking");
@@ -41,8 +40,9 @@ public class GetBookingIdsTests extends BaseTest{
         List<Integer> bookingIds = response.jsonPath().getList("bookingid");
         Assert.assertTrue(!bookingIds.isEmpty(), "List of booking ids is empty but it should not be.");
     }
+
     private void prepareBooking() {
-        if(booking == null) {
+        if (booking == null) {
             Response response = createBooking();
             Bookingdates bookingdates = new Bookingdates(response.jsonPath().getString("booking.bookingdates.checkin"),
                     response.jsonPath().getString("booking.bookingdates.checkout"));

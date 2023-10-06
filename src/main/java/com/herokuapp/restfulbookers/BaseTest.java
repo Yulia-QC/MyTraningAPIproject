@@ -7,12 +7,13 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 
 
 public class BaseTest {
    protected RequestSpecification spec;
    protected Booking booking;
-    @BeforeMethod
+    @BeforeSuite
     public void setUp() {
         spec = new RequestSpecBuilder()
                 .setBaseUri("https://restful-booker.herokuapp.com")

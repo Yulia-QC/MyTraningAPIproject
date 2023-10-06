@@ -1,24 +1,27 @@
 package com.herokuapp.restfulbookers;
 
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.specification.RequestSpecification;
-import org.json.JSONObject;
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import org.json.JSONObject;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 
 public class BaseTest {
-   protected RequestSpecification spec;
-   protected Booking booking;
+    protected RequestSpecification spec;
+    protected Booking booking;
+
     @BeforeSuite
+    @BeforeMethod
     public void setUp() {
         spec = new RequestSpecBuilder()
                 .setBaseUri("https://restful-booker.herokuapp.com")
                 .build();
     }
+
     protected Response createBooking() {
         // create JSON body
         JSONObject body = new JSONObject();

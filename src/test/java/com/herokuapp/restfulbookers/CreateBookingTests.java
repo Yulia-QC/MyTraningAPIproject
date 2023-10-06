@@ -73,13 +73,15 @@ public class CreateBookingTests extends BaseTest {
 
     }
     @AfterClass(alwaysRun = true)
-    public void deleteInitializedBooking(){
-        int bookingid = response.jsonPath().getInt("bookingid");
+    public void deleteInitializedBooking() {
+        if (response != null) {
+            int bookingid = response.jsonPath().getInt("bookingid");
 
-        //delete booking with authorization (auth().preemptive().basic("username","password").)
-        Response responseDelete = RestAssured.given(spec).auth().preemptive().basic("admin", "password123")
-                .delete("/booking/" + bookingid);
-        responseDelete.print();
+            //delete booking with authorization (auth().preemptive().basic("username","password").)
+            Response responseDelete = RestAssured.given(spec).auth().preemptive().basic("admin", "password123")
+                    .delete("/booking/" + bookingid);
+            responseDelete.print();
+        }
     }
 
 }

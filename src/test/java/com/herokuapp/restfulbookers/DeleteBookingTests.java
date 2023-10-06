@@ -41,16 +41,16 @@ public class DeleteBookingTests extends BaseTest {
         Assert.assertEquals(responseGet.getBody().asString(), "Not Found", "Body should be 'Not Found', but it is not.");
 
     }
-//    @AfterClass(alwaysRun = true)
-//    public void deleteInitializedBooking() {
-//        if (response != null) {
-//            int bookingid = response.jsonPath().getInt("bookingid");
-//
-//            //delete booking with authorization (auth().preemptive().basic("username","password").)
-//            Response responseDelete = RestAssured.given(spec).auth().preemptive().basic("admin", "password123")
-//                    .delete("/booking/" + bookingid);
-//            responseDelete.print();
-//        }
-//    }
+    @AfterClass(alwaysRun = true)
+    public void deleteInitializedBooking() {
+        if (response != null) {
+            int bookingid = response.jsonPath().getInt("bookingid");
+
+            //delete booking with authorization (auth().preemptive().basic("username","password").)
+            Response responseDelete = RestAssured.given(spec).auth().preemptive().basic("admin", "password123")
+                    .delete("/booking/" + bookingid);
+            responseDelete.print();
+        }
+    }
 
 }

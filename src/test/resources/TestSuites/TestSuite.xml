@@ -1,0 +1,35 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TestSuite" verbose="1" parallel="methods" thread-count="6">
+
+
+    <test name="CreateBookingTests">
+        <classes>
+            <class name="com.herokuapp.restfulbookers.CreateBookingTests"></class>
+        </classes>
+    </test>
+    <test name="UpdateBookingTests">
+        <classes>
+            <class name="com.herokuapp.restfulbookers.UpdateBookingTests"></class>
+        </classes>
+    </test>
+    <test name="GetBookingIdsTests">
+        <classes>
+            <class name="com.herokuapp.restfulbookers.GetBookingIdsTests"></class>
+        </classes>
+    </test>
+    <test name="GetBookingTests">
+        <classes>
+            <class name="com.herokuapp.restfulbookers.GetBookingTests"></class>
+        </classes>
+    </test>
+    <test name="PatchBookingTests">
+        <classes>
+            <class name="com.herokuapp.restfulbookers.PatchBookingTests"></class>
+        </classes>
+    </test>
+    <test name="DeleteBookingTests">
+        <classes>
+            <class name="com.herokuapp.restfulbookers.DeleteBookingTests"></class>
+        </classes>
+    </test>
+</suite>

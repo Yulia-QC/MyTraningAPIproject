@@ -1,6 +1,7 @@
 package com.herokuapp.restfulbookers;
 
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,6 +13,9 @@ public class GetBookingIdsTests extends BaseTest {
 
     @Test
     public void getBookingIdsWithoutFilterTest() {
+        spec = new RequestSpecBuilder()
+                .setBaseUri("https://restful-booker.herokuapp.com")
+                .build();
         //Get response with booking ids
         Response response = RestAssured.given(spec).get("/booking");
         response.print();

@@ -12,7 +12,7 @@ public class CreateBookingTests extends BaseTest {
     Response response;
     @BeforeClass
     public void initializeBooking() {
-        response= createBooking();
+        response = createBooking();
         response.print();
         Assert.assertEquals(response.getStatusCode(), 200, "Status code expected to be 200 but it is not");
     }
@@ -70,16 +70,16 @@ public class CreateBookingTests extends BaseTest {
         Assert.assertEquals(bookingId.getBooking().toString(),booking.toString());
 
     }
-//    @AfterClass(alwaysRun = true)
-//    public void deleteInitializedBooking() {
-//        if (response != null) {
-//            int bookingid = response.jsonPath().getInt("bookingid");
-//
-//            //delete booking with authorization (auth().preemptive().basic("username","password").)
-//            Response responseDelete = RestAssured.given(spec).auth().preemptive().basic("admin", "password123")
-//                    .delete("/booking/" + bookingid);
-//            responseDelete.print();
-//        }
-//    }
+    @AfterClass(alwaysRun = true)
+    public void deleteInitializedBooking() {
+        if (response != null) {
+            int bookingid = response.jsonPath().getInt("bookingid");
+
+            //delete booking with authorization (auth().preemptive().basic("username","password").)
+            Response responseDelete = RestAssured.given(spec).auth().preemptive().basic("admin", "password123")
+                    .delete("/booking/" + bookingid);
+            responseDelete.print();
+        }
+    }
 
 }

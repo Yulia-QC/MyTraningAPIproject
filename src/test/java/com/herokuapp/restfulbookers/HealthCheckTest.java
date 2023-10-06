@@ -27,10 +27,10 @@ public class HealthCheckTest extends BaseTest {
     public void headersAndCookiesTest() {
         //adding test cookies and headers
         Header someHeader = new Header("some header name","some header value");
-        spec.header(someHeader);
+//        spec.header(someHeader);
 
         Cookie someCookie = new Cookie.Builder("some cookie name","some cookie value").build();
-        spec.cookie(someCookie);
+//        spec.cookie(someCookie);
 
         Response response = RestAssured.given(spec).
                 cookie("Test cookie name","Test cookie value").
